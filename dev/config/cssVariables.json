@@ -1,6 +1,6 @@
 {
 	"variables": {
-		"global-font-color": "#333",
+		"global-font-color": "#000",
 		"global-font-family": "'Lato', sans-serif",
 		"global-font-size": "20",
 		"global-font-line-height": "1.4",

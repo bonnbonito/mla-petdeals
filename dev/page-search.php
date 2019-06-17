@@ -1,6 +1,6 @@
 <?php
 /**
- * The template for displaying all pages
+ * The template for displaying search page
  *
  * @link https://codex.wordpress.org/Template_Hierarchy
  *
@@ -22,7 +22,7 @@ get_header(); ?>
 			 */
 			wp_print_styles( array( 'wprig-content' ) ); // Note: If this was already done it will be skipped.
 
-			get_template_part( 'template-parts/content', 'page' );
+			get_template_part( 'template-parts/pet', 'search' );
 
 		endwhile; // End of the loop.
 		?>
@@ -30,5 +30,4 @@ get_header(); ?>
 	</main><!-- #primary -->
 
 <?php
-get_sidebar();
 get_footer();

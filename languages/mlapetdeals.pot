@@ -1,0 +1,609 @@
+# Copyright (C) 2019 MLA Pet Deals
+# This file is distributed under the same license as the MLA Pet Deals package.
+msgid ""
+msgstr ""
+"Project-Id-Version: MLA Pet Deals\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: MLA Web Designs\n"
+"Report-Msgid-Bugs-To: MLA Pet Deals\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: 404.php:16
+msgid "Oops! That page can&rsquo;t be found."
+msgstr ""
+
+#: 404.php:20
+msgid "It looks like nothing was found at this location. Maybe try one of the links below or a search?"
+msgstr ""
+
+#: 404.php:29
+msgid "Most Used Categories"
+msgstr ""
+
+#. translators: %1$s: smiley
+#: 404.php:48
+msgid "Try looking in the monthly archives. %1$s"
+msgstr ""
+
+#. translators: 1: title.
+#: comments.php:36
+msgid "One thought on &ldquo;%1$s&rdquo;"
+msgstr ""
+
+#. translators: 1: comment count number, 2: title.
+#: comments.php:42
+msgctxt "comments title"
+msgid "%1$s thought on &ldquo;%2$s&rdquo;"
+msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
+msgstr[0] ""
+msgstr[1] ""
+
+#: comments.php:85
+msgid "New comment(s)"
+msgstr ""
+
+#: comments.php:94
+msgid "Comments are closed."
+msgstr ""
+
+#: functions.php:47
+msgid "Left Menu"
+msgstr ""
+
+#: functions.php:48
+msgid "Right Menu"
+msgstr ""
+
+#: functions.php:49
+msgid "Mobile Menu"
+msgstr ""
+
+#: functions.php:114
+msgid "Dusty orange"
+msgstr ""
+
+#: functions.php:119
+msgid "Dusty red"
+msgstr ""
+
+#: functions.php:124
+msgid "Dusty wine"
+msgstr ""
+
+#: functions.php:129
+msgid "Dark sunset"
+msgstr ""
+
+#: functions.php:134
+msgid "Almost black"
+msgstr ""
+
+#: functions.php:139
+msgid "Dusty water"
+msgstr ""
+
+#: functions.php:144
+msgid "Dusty sky"
+msgstr ""
+
+#: functions.php:149
+msgid "Dusty daylight"
+msgstr ""
+
+#: functions.php:154
+msgid "Dusty sun"
+msgstr ""
+
+#: functions.php:175
+msgid "small"
+msgstr ""
+
+#: functions.php:176
+msgid "S"
+msgstr ""
+
+#: functions.php:181
+msgid "regular"
+msgstr ""
+
+#: functions.php:182
+msgid "M"
+msgstr ""
+
+#: functions.php:187
+msgid "large"
+msgstr ""
+
+#: functions.php:188
+msgid "L"
+msgstr ""
+
+#: functions.php:193
+msgid "larger"
+msgstr ""
+
+#: functions.php:194
+msgid "XL"
+msgstr ""
+
+#: functions.php:236
+msgctxt "Lato font: on or off"
+msgid "on"
+msgstr ""
+
+#: functions.php:297
+msgid "Sidebar"
+msgstr ""
+
+#: functions.php:299, functions.php:308
+msgid "Add widgets here."
+msgstr ""
+
+#: functions.php:306
+msgid "Shop Sidebar"
+msgstr ""
+
+#: functions.php:353
+msgid "Expand child menu"
+msgstr ""
+
+#: functions.php:354
+msgid "Collapse child menu"
+msgstr ""
+
+#: header.php:30
+msgid "Skip to content"
+msgstr ""
+
+#: header.php:62
+msgid "Left menu"
+msgstr ""
+
+#: header.php:84
+msgid "Right menu"
+msgstr ""
+
+#: header.php:100
+msgid "Main menu"
+msgstr ""
+
+#: header.php:115
+msgid "Open menu"
+msgstr ""
+
+#: inc/customizer.php:38
+msgid "Theme Options"
+msgstr ""
+
+#: inc/customizer.php:54, inc/customizer.php:101
+msgid "Lazy-load images"
+msgstr ""
+
+#: inc/customizer.php:57
+msgid "Lazy-loading images means images are loaded only when they are in view. Improves performance, but can result in content jumping around on slower connections."
+msgstr ""
+
+#: inc/customizer.php:59
+msgid "Lazy-load on (default)"
+msgstr ""
+
+#: inc/customizer.php:60
+msgid "Lazy-load off"
+msgstr ""
+
+#: inc/customizer.php:102
+msgid "Load images immediately"
+msgstr ""
+
+#. translators: %s: search query.
+#: inc/template-tags.php:65
+msgid "Search Results for: %s"
+msgstr ""
+
+#. translators: %s: post date.
+#: inc/template-tags.php:101
+msgctxt "post date"
+msgid "Posted on %s"
+msgstr ""
+
+#. translators: %s: post author.
+#: inc/template-tags.php:115
+msgctxt "post author"
+msgid "by %s"
+msgstr ""
+
+#. translators: used between list items, there is a space after the comma
+#: inc/template-tags.php:131
+msgid ", "
+msgstr ""
+
+#. translators: 1: list of categories.
+#: inc/template-tags.php:134
+msgid "Posted in %1$s"
+msgstr ""
+
+#. translators: used between list items, there is a space after the comma
+#: inc/template-tags.php:148
+msgctxt "list item separator"
+msgid ", "
+msgstr ""
+
+#. translators: 1: list of tags.
+#: inc/template-tags.php:151
+msgid "Tagged %1$s"
+msgstr ""
+
+#. translators: %s: post title
+#: inc/template-tags.php:166
+msgid "Leave a Comment<span class=\"screen-reader-text\"> on %s</span>"
+msgstr ""
+
+#. translators: %s: Name of current post. Only visible to screen readers
+#: inc/template-tags.php:188
+msgid "Edit <span class=\"screen-reader-text\">%s</span>"
+msgstr ""
+
+#. translators: %s: original post where attachment was added.
+#: inc/template-tags.php:266
+msgctxt "original post"
+msgid "in %s"
+msgstr ""
+
+#: inc/template-tags.php:282
+msgid "Post navigation"
+msgstr ""
+
+#: inc/template-tags.php:286
+msgid "Previous attachment:"
+msgstr ""
+
+#: inc/template-tags.php:292
+msgid "Next attachment:"
+msgstr ""
+
+#: page-about.php:4
+msgid "About"
+msgstr ""
+
+#: page-blog.php:4
+msgid "News"
+msgstr ""
+
+#: page-dashboard.php:3, pluggable/petdeals/woocommerce.php:101
+msgid "Dashboard"
+msgstr ""
+
+#: page-register.php:3, woocommerce/myaccount/form-login.php:87, woocommerce/myaccount/form-login.php:120, woocommerce/myaccount/form-login.php:120
+msgid "Register"
+msgstr ""
+
+#: pluggable/petdeals/petdeals.php:32
+msgid "Publish Ad"
+msgstr ""
+
+#: pluggable/petdeals/petdeals.php:33
+msgid "Ad Posted"
+msgstr ""
+
+#: pluggable/petdeals/petdeals.php:66
+msgid "<strong>Success:</strong> Your account has been activated! "
+msgstr ""
+
+#: pluggable/petdeals/petdeals.php:556
+msgid "Validate your account."
+msgstr ""
+
+#: pluggable/petdeals/woocommerce.php:102
+msgid "Add New Advert"
+msgstr ""
+
+#: pluggable/petdeals/woocommerce.php:103
+msgid "Manage Adverts"
+msgstr ""
+
+#: pluggable/petdeals/woocommerce.php:104
+msgid "Favorite Ads"
+msgstr ""
+
+#: pluggable/petdeals/woocommerce.php:105
+msgid "Orders"
+msgstr ""
+
+#: pluggable/petdeals/woocommerce.php:106
+msgid "Change My Details"
+msgstr ""
+
+#: pluggable/petdeals/woocommerce.php:107
+msgid "Addresses"
+msgstr ""
+
+#: pluggable/petdeals/woocommerce.php:108
+msgid "Logout"
+msgstr ""
+
+#: template-parts/content-none.php:13
+msgid "Nothing Found"
+msgstr ""
+
+#. translators: 1: link to WP admin new post page.
+#: template-parts/content-none.php:26
+msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgstr ""
+
+#: template-parts/content-none.php:41
+msgid "Sorry, but nothing matched your search terms. Please try again with some different keywords."
+msgstr ""
+
+#: template-parts/content-none.php:49
+msgid "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."
+msgstr ""
+
+#: template-parts/content-page.1.php:29, template-parts/content-page.php:26, template-parts/content.php:56
+msgid "Pages:"
+msgstr ""
+
+#. translators: %s: Name of current post. Only visible to screen readers
+#: template-parts/content.php:43
+msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
+msgstr ""
+
+#: template-parts/content.php:89
+msgid "Previous:"
+msgstr ""
+
+#: template-parts/content.php:90
+msgid "Next:"
+msgstr ""
+
+#: woocommerce/cart/cart-totals.php:27
+msgid "Cart totals"
+msgstr ""
+
+#: woocommerce/cart/cart-totals.php:32, woocommerce/cart/cart-totals.php:33
+msgid "Subtotal"
+msgstr ""
+
+#: woocommerce/cart/cart-totals.php:54, woocommerce/cart/cart-totals.php:55
+msgid "Shipping"
+msgstr ""
+
+#: woocommerce/cart/cart-totals.php:60, woocommerce/cart/cart-totals.php:61
+msgid "Delivery"
+msgstr ""
+
+#: woocommerce/cart/cart-totals.php:76
+msgid "(estimated for %s)"
+msgstr ""
+
+#: woocommerce/cart/cart-totals.php:97, woocommerce/cart/cart-totals.php:98, woocommerce/myaccount/my-orders.php:16
+msgid "Total"
+msgstr ""
+
+#. translators: 1: user display name 2: logout url
+#: woocommerce/myaccount/dashboard.php:29
+msgid "Hello %1$s (not %1$s? <a href=\"%2$s\">Log out</a>)"
+msgstr ""
+
+#: woocommerce/myaccount/dashboard.php:37
+msgid "From your account dashboard you can view your <a href=\"%1$s\">recent orders</a>, manage your <a href=\"%2$s\">shipping and billing addresses</a>, and <a href=\"%3$s\">edit your password and account details</a>."
+msgstr ""
+
+#: woocommerce/myaccount/downloads.php:41, woocommerce/myaccount/orders.php:101
+msgid "Go shop"
+msgstr ""
+
+#: woocommerce/myaccount/downloads.php:43
+msgid "No downloads available yet."
+msgstr ""
+
+#: woocommerce/myaccount/form-add-payment-method.php:52, woocommerce/myaccount/form-add-payment-method.php:52, woocommerce/myaccount/payment-methods.php:80
+msgid "Add payment method"
+msgstr ""
+
+#: woocommerce/myaccount/form-add-payment-method.php:58
+msgid "New payment methods can only be added during checkout. Please contact us if you require assistance."
+msgstr ""
+
+#: woocommerce/myaccount/form-edit-account.php:27
+msgid "First name"
+msgstr ""
+
+#: woocommerce/myaccount/form-edit-account.php:31
+msgid "Last name"
+msgstr ""
+
+#: woocommerce/myaccount/form-edit-account.php:37
+msgid "Display name"
+msgstr ""
+
+#: woocommerce/myaccount/form-edit-account.php:38
+msgid "This will be how your name will be displayed in the account section and in reviews"
+msgstr ""
+
+#: woocommerce/myaccount/form-edit-account.php:43, woocommerce/myaccount/form-login.php:103
+msgid "Email address"
+msgstr ""
+
+#: woocommerce/myaccount/form-edit-account.php:48
+msgid "Password change"
+msgstr ""
+
+#: woocommerce/myaccount/form-edit-account.php:51
+msgid "Current password (leave blank to leave unchanged)"
+msgstr ""
+
+#: woocommerce/myaccount/form-edit-account.php:55
+msgid "New password (leave blank to leave unchanged)"
+msgstr ""
+
+#: woocommerce/myaccount/form-edit-account.php:59
+msgid "Confirm new password"
+msgstr ""
+
+#: woocommerce/myaccount/form-edit-account.php:69, woocommerce/myaccount/form-edit-account.php:69
+msgid "Save changes"
+msgstr ""
+
+#: woocommerce/myaccount/form-edit-address.php:20, woocommerce/myaccount/my-address.php:27, woocommerce/myaccount/my-address.php:32
+msgid "Billing address"
+msgstr ""
+
+#: woocommerce/myaccount/form-edit-address.php:20, woocommerce/myaccount/my-address.php:28
+msgid "Shipping address"
+msgstr ""
+
+#: woocommerce/myaccount/form-edit-address.php:49, woocommerce/myaccount/form-edit-address.php:49
+msgid "Save address"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:43
+msgid "Login"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:60, woocommerce/myaccount/form-login.php:60
+msgid "Log in"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:67
+msgid "Remember me"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:73
+msgid "Lost your password?"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:96
+msgid "Username"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:110
+msgid "Password"
+msgstr ""
+
+#: woocommerce/myaccount/form-lost-password.php:25
+msgid "Lost your password? Please enter your username or email address. You will receive a link to create a new password via email."
+msgstr ""
+
+#: woocommerce/myaccount/form-lost-password.php:28
+msgid "Username or email"
+msgstr ""
+
+#: woocommerce/myaccount/form-lost-password.php:38, woocommerce/myaccount/form-lost-password.php:38
+msgid "Reset password"
+msgstr ""
+
+#: woocommerce/myaccount/form-reset-password.php:25
+msgid "Enter a new password below."
+msgstr ""
+
+#: woocommerce/myaccount/form-reset-password.php:28
+msgid "New password"
+msgstr ""
+
+#: woocommerce/myaccount/form-reset-password.php:32
+msgid "Re-enter new password"
+msgstr ""
+
+#: woocommerce/myaccount/form-reset-password.php:45, woocommerce/myaccount/form-reset-password.php:45
+msgid "Save"
+msgstr ""
+
+#: woocommerce/myaccount/lost-password-confirmation.php:22
+msgid "Password reset email has been sent."
+msgstr ""
+
+#: woocommerce/myaccount/lost-password-confirmation.php:25
+msgid "A password reset email has been sent to the email address on file for your account, but may take several minutes to show up in your inbox. Please wait at least 10 minutes before attempting another reset."
+msgstr ""
+
+#: woocommerce/myaccount/my-address.php:41
+msgid "The following addresses will be used on the checkout page by default."
+msgstr ""
+
+#: woocommerce/myaccount/my-address.php:53
+msgid "Edit"
+msgstr ""
+
+#: woocommerce/myaccount/my-address.php:57
+msgid "You have not set up this type of address yet."
+msgstr ""
+
+#: woocommerce/myaccount/my-downloads.php:30
+msgid "Available downloads"
+msgstr ""
+
+#: woocommerce/myaccount/my-downloads.php:39
+msgid "%s download remaining"
+msgid_plural "%s downloads remaining"
+msgstr[0] ""
+msgstr[1] ""
+
+#: woocommerce/myaccount/my-orders.php:13
+msgid "Order"
+msgstr ""
+
+#: woocommerce/myaccount/my-orders.php:14
+msgid "Date"
+msgstr ""
+
+#: woocommerce/myaccount/my-orders.php:15
+msgid "Status"
+msgstr ""
+
+#: woocommerce/myaccount/my-orders.php:30
+msgid "Recent orders"
+msgstr ""
+
+#: woocommerce/myaccount/my-orders.php:55, woocommerce/myaccount/orders.php:51
+msgctxt "hash before order number"
+msgid "#"
+msgstr ""
+
+#. translators: 1: formatted order total 2: total order items
+#. translators: 1: formatted order total 2: total order items
+#: woocommerce/myaccount/my-orders.php:67, woocommerce/myaccount/orders.php:63
+msgid "%1$s for %2$s item"
+msgid_plural "%1$s for %2$s items"
+msgstr[0] ""
+msgstr[1] ""
+
+#: woocommerce/myaccount/orders.php:89
+msgid "Previous"
+msgstr ""
+
+#: woocommerce/myaccount/orders.php:93
+msgid "Next"
+msgstr ""
+
+#: woocommerce/myaccount/orders.php:103
+msgid "No order has been made yet."
+msgstr ""
+
+#. translators: 1: credit card type 2: last 4 digits
+#: woocommerce/myaccount/payment-methods.php:52
+msgid "%1$s ending in %2$s"
+msgstr ""
+
+#: woocommerce/myaccount/payment-methods.php:73
+msgid "No saved methods found."
+msgstr ""
+
+#. translators: 1: order number 2: order date 3: order status
+#: woocommerce/myaccount/view-order.php:30
+msgid "Order #%1$s was placed on %2$s and is currently %3$s."
+msgstr ""
+
+#: woocommerce/myaccount/view-order.php:39
+msgid "Order updates"
+msgstr ""
+
+#: woocommerce/myaccount/view-order.php:45
+msgid "l jS \o\f F Y, h:ia"
+msgstr ""

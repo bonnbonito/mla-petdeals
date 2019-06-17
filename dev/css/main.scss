@@ -1,0 +1,16 @@
+@import "../../node_modules/bulma/bulma";
+
+
+.top-header {
+	.navbar.is-transparent {
+		background: transparent;
+	}
+}
+
+@media (max-width: $desktop) {
+	.top-header {
+		visibility: hidden !important;
+		display: none;
+	}
+}
+

@@ -1,8 +1,8 @@
 /*!
 Theme Name: WP Rig
-Theme URI: https://github.com/wprig/wprig/
-Author: Morten Rand-Hendriksen et.al.
-Author URI: https://github.com/wprig/wprig/
+Theme URI: https://www.mlawebdesigns.co.uk
+Author: MLA Web Designs
+Author URI: https://www.mlawebdesigns.co.uk
 Description: A progressive theme development rig for WordPress.
 Version: 1.0.4
 License: GNU General Public License v3 or later
@@ -48,6 +48,7 @@ Nicolas Gallagher and Jonathan Neal http://necolas.github.io/normalize.css/
  html {
   line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
+  scroll-behavior: smooth;
 }
 
 /* Sections
@@ -210,6 +211,7 @@ textarea {
 button,
 input { /* 1 */
 	overflow: visible;
+	border: 0;
 }
 
 /**
@@ -344,6 +346,13 @@ textarea {
 	font: inherit; /* 2 */
 }
 
+.btn.large {
+	font-size: 120%;
+	font-weight: 700;
+	padding: 12px 25px;
+	overflow: hidden;
+}
+
 /* Interactive
    ========================================================================== */
 
@@ -438,12 +447,9 @@ template {
   overflow: hidden;
 }
 
-.container {
-	max-width: 1400px;
-	width: 100%;
-	margin: auto;
-	padding-left: 15px;
-	padding-right: 15px;
+.site-header .site-branding img {
+	width: 301px;
+	height: auto;
 }
 
 @media (--sidebar-query) {
@@ -505,6 +511,18 @@ template {
 	display: block;
 	width: 100%;
 	height: 10px;
+}
+
+.container,
+.woocommerce-notices-wrapper .woocommerce-message {
+	max-width: 1200px;
+	margin: auto;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+.woocommerce-notices-wrapper .woocommerce-message {
+	padding-left: 60px;
 }
 
 /*--------------------------------------------------------------
@@ -606,10 +624,6 @@ hr {
 	margin-bottom: 1.5em;
 }
 
-ul, ol {
-	margin: 0 0 1.5em 3em;
-}
-
 ul {
 	list-style: disc;
 }
@@ -678,78 +692,7 @@ a:hover, a:active {
 /*--------------------------------------------------------------
 # Forms
 --------------------------------------------------------------*/
-button,
-input[type="button"],
-input[type="reset"],
-input[type="submit"] {
-	border: 1px solid;
-	border-color: #ccc #ccc #bbb;
-	border-radius: 3px;
-	background: #e6e6e6;
-	color: rgba(0, 0, 0, 0.8);
-	font-size: 0.75rem;
-	line-height: 1;
-	padding: .6em 1em .4em;
-	cursor: pointer;
-}
 
-button:hover,
-input[type="button"]:hover,
-input[type="reset"]:hover,
-input[type="submit"]:hover {
-	border-color: #ccc #bbb #aaa;
-}
-
-button:active, button:focus,
-input[type="button"]:active,
-input[type="button"]:focus,
-input[type="reset"]:active,
-input[type="reset"]:focus,
-input[type="submit"]:active,
-input[type="submit"]:focus {
-	border-color: #aaa #bbb #bbb;
-}
-
-input[type="text"],
-input[type="email"],
-input[type="url"],
-input[type="password"],
-input[type="search"],
-input[type="number"],
-input[type="tel"],
-input[type="range"],
-input[type="date"],
-input[type="month"],
-input[type="week"],
-input[type="time"],
-input[type="datetime"],
-input[type="datetime-local"],
-input[type="color"],
-textarea {
-	color: #666;
-	border: 1px solid #ccc;
-	border-radius: 3px;
-	padding: 3px;
-}
-
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="url"]:focus,
-input[type="password"]:focus,
-input[type="search"]:focus,
-input[type="number"]:focus,
-input[type="tel"]:focus,
-input[type="range"]:focus,
-input[type="date"]:focus,
-input[type="month"]:focus,
-input[type="week"]:focus,
-input[type="time"]:focus,
-input[type="datetime"]:focus,
-input[type="datetime-local"]:focus,
-input[type="color"]:focus,
-textarea:focus {
-	color: #111;
-}
 
 select {
 	border: 1px solid #ccc;
@@ -805,6 +748,14 @@ textarea {
 	color: #757575;
 }
 
+.navbar-end .navbar-item {
+	margin-right: 1rem;
+}
+
+.navbar-end .navbar-item:last-child {
+	margin-right: 0;
+}
+
 /*--------------------------------------------------------------
 ## Main navigation menu
 --------------------------------------------------------------*/
@@ -851,6 +802,8 @@ textarea {
 
 .main-navigation {
 	font-family: var(--highlight-font-family);
+	display: flex;
+	align-items: center;
 }
 
 .menu-toggle {
@@ -911,13 +864,16 @@ textarea {
 	background: #e3f8ff;
 	width: 100%;
 	left: 0;
-	top: 108px;
+	top: 80px;
 	padding: 15px;
-	z-index: 999;
 }
 
 .logged-in .mobile-menu-container .menu {
 	top: 154px;
+}
+
+.mobile-menu-container .menu {
+	z-index: 99999;
 }
 
 @media (--narrow-menu-query) {
@@ -1193,6 +1149,27 @@ textarea {
 	max-width: 230px;
 }
 
+.footer-right {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+
+.fz12 {
+	font-size: 15px;
+	color: #999;
+}
+
+.footer-right > div {
+	width: 50%;
+}
+
+@media ( max-width: 767px ) {
+	.footer-right > div {
+		width: 100%;
+	}
+}
+
 .footer-bottom {
 	font-size: 14px;
 	padding-top: 10px;
@@ -1251,6 +1228,7 @@ textarea {
 .subscribeform form input {
 	border-radius: 30px;
 	padding: 10px 30px;
+	border: 0;
 }
 
 
@@ -1258,6 +1236,7 @@ textarea {
 	color: white;
 	background: black;
 	font-size: 24px;
+	cursor: pointer;
 }
 
 @media (max-width: 767px) {
@@ -1275,6 +1254,30 @@ textarea {
 	}
 	.site-footer {
 		padding-bottom: 0;
+	}
+	.subscribe-wrap {
+		display: block;
+	}
+	.yellow-bg {
+		padding-top: 1em;
+		padding-bottom: 1em;
+	}
+	.subscribe-wrap h3 {
+		font-size: 35px;
+		font-weight: 100;
+		line-height: 1;
+		margin: 0;
+		margin-bottom: 15px;
+	}
+	.subscribeform form input.send-btn {
+		color: #fff;
+		background: #000;
+		font-size: 1em;
+	}
+	.subscribeform form input {
+		border-radius: 30px;
+		padding: 5px 15px;
+		border: 0;
 	}
 }
 
@@ -1311,4 +1314,126 @@ SVG Icons - svgicons.sparkk.fr
 .svg-icon circle {
 	stroke: #000;
 	stroke-width: 1;
+}
+
+.widget-area section {
+	margin-bottom: 1em;
+}
+
+.widget_search .search-form {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+.widget_search .search-form label {
+	width: calc(100% - 75px);
+}
+
+.widget_search .search-form .search-field {
+	font-size: 14px;
+	border: 1px solid #ddd;
+	width: 100%;
+	height: 33px;
+	line-height: 33px;
+	padding-left: .75em;
+}
+
+.cart-icon {
+	position: relative;
+}
+
+.cart-count {
+	color: #fff;
+	position: absolute;
+	right: -8px;
+	top: -5px;
+	background: red;
+	width: 15px;
+	height: 15px;
+	text-align: center;
+	border-radius: 10px;
+	font-size: 12px;
+}
+
+.spacer {
+	width: 100%;
+	display: block;
+	height: 50px;
+}
+
+.choose-us-section {
+	background-image: url('images/paw.png');
+	background-repeat: no-repeat;
+	background-size: 300px;
+	background-position: top right;
+}
+
+.cc-cards {
+	list-style: none;
+	padding: 0;
+}
+
+.cc-cards li {
+	display: inline;
+	font-size: 35px;
+}
+
+.mailchimp-result {
+	text-align: center;
+}
+
+.mailchimp-result  h2 {
+	color: green;
+}
+
+
+body .body-overlay {
+	position: fixed;
+	overflow: hidden;
+	top: 0;
+	left: 0;
+	background: rgba(0,0,0,.5);
+	width: 100%;
+	height: 100%;
+	min-height: 100vh;
+	display: none;
+	z-index: 1;
+}
+
+body.no-scroll .site,
+body.no-scroll {
+	overflow: hidden;
+}
+
+body.no-scroll .body-overlay {
+	display: block;
+}
+
+.woocommerce-notices-wrapper.woocommerce-notices-wrapper ul {
+	padding-left: 40px;
+}
+
+.woocommerce-error.woocommerce-error::before,
+.woocommerce-info.woocommerce-info::before,
+.woocommerce-message.woocommerce-message::before {
+	top: 50%;
+    transform: translateY(-50%);
+    left: .5em;
+}
+
+.title.has-underline {
+	display: inline-block;
+	position: relative;
+}
+
+.title.has-underline:after {
+	width: 100%;
+	height: 1px;
+	background: #32373c;
+	display: inline-block;
+	position: absolute;
+	content: '';
+	bottom: 0;
+	left: 0;
 }

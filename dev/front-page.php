@@ -14,7 +14,7 @@ get_header();
 * This call runs only once on index and archive pages.
 * At some point, override functionality should be built in similar to the template part below.
 */
-wp_print_styles( array( 'wprig-content', 'wprig-front-page', 'wprig-slick-style', 'wprig-slick-theme', 'wprig-slick-custom', 'wprig-swiper-style' ) ); // Note: If this was already done it will be skipped.
+wp_print_styles( array( 'wprig-content', 'wprig-front-page', 'wprig-swiper-style' ) ); // Note: If this was already done it will be skipped.
 
 ?>
 	<main id="primary" class="site-main">
@@ -26,34 +26,30 @@ wp_print_styles( array( 'wprig-content', 'wprig-front-page', 'wprig-slick-style'
 			<div class="banner-wrap">
 				<div class="container">
 					<div class="dog-container">
+					<?php
+					if ( have_rows( 'top_slider' ) ) :
+						?>
 						<div class="carousel-wrap">
 							<div class="carousel-slider">
 								<!-- Slider main container -->
 								<div class="carousel swiper-container">
 									<!-- Additional required wrapper -->
 									<div class="swiper-wrapper">
-										<!-- Slides -->
-										<div class="swiper-slide">
-											<div class="carousel-item">
-												<h2>Post FREE Pet Adverts</h2>
-												<p>You can post any number of adverts of Puppies, Cats , Rabbits</p>
-												<a href="#" class="btn yellow">REGISTER NOW</a>
+										<?php
+										while ( have_rows( 'top_slider' ) ) :
+											the_row();
+											?>
+											<!-- Slides -->
+											<div class="swiper-slide">
+												<div class="carousel-item">
+													<h2 class="title is-2"><?php the_sub_field( 'title' ); ?></h2>
+													<p><?php the_sub_field( 'content' ); ?></p>
+													<a href="<?php the_sub_field( 'link' ); ?>" class="btn yellow"><?php the_sub_field( 'link_text' ); ?></a>
+												</div>
 											</div>
-										</div>
-										<div class="swiper-slide">
-											<div class="carousel-item">
-												<h2>Post FREE Pet Adverts</h2>
-												<p>You can post any number of adverts of Puppies, Cats , Rabbits</p>
-												<a href="#" class="btn yellow">REGISTER NOW</a>
-											</div>
-										</div>
-										<div class="swiper-slide">
-											<div class="carousel-item">
-												<h2>Post FREE Pet Adverts</h2>
-												<p>You can post any number of adverts of Puppies, Cats , Rabbits</p>
-												<a href="#" class="btn yellow">REGISTER NOW</a>
-											</div>
-										</div>
+											<?php
+										endwhile;
+										?>
 									</div>
 									<!-- If we need pagination -->
 									<div class="swiper-pagination"></div>
@@ -72,6 +68,9 @@ wp_print_styles( array( 'wprig-content', 'wprig-front-page', 'wprig-slick-style'
 									});
 							</script>
 						</div>
+						<?php
+					endif;
+					?>
 						<div class="dog-img">
 							<img src="<?php echo esc_url( get_theme_file_uri( '/images/dog.png' ) ); ?>" alt="">
 						</div>
@@ -81,66 +80,97 @@ wp_print_styles( array( 'wprig-content', 'wprig-front-page', 'wprig-slick-style'
 							</div>
 							<div class="filter-right">
 								<div class="slant"></div>
-								<form action="">
-									<select name="" id="">
-										<option value="">Pet Type</option>
+								<form action="<?php bloginfo( 'url' ); ?>/search" method="get">
+									<select name="pet_type" id="pet_type">
+										<option value="">Pet Type (Any) </option>
+										<?php
+										$pet_query = new WP_Query( array(
+											'post_type'  => 'pet',
+											'posts_per_page' => -1,
+										));
+										if ( $pet_query->have_posts() ) :
+											while ( $pet_query->have_posts() ) :
+												$pet_query->the_post();
+												$postname = get_post_field( 'post_name', get_the_ID() );
+												?>
+												<option value="<?php echo esc_attr( $postname ); ?>" <?php echo ( isset( $ad_id ) && get_field( 'pet_type', $ad_id ) == $postname ? 'selected' : '' ); ?>><?php the_title(); ?></option>
+												<?php
+											endwhile;
+											wp_reset_postdata();
+										endif;
+										?>
 									</select>
-									<select name="" id="">
-										<option value="">Pet Breed</option>
+									<select name="pet_breed" id="pet_breed">
+										<option value="">Pet Breed (Any)</option>
 									</select>
-									<select name="" id="">
-									<option value="">Location</option>
-									</select>
+									<input type="text" placeholder="Location" name="origin" id="autocomplete">
+									<input type="hidden" name="distance" value="100">
 									<button type="submit">SEARCH NOW</button>
 								</form>
+								<script>
+									var input = document.getElementById('autocomplete');
+									var options = {
+										types: ['geocode'],
+										componentRestrictions: {country: "uk"}
+									};
+									var autocomplete = new google.maps.places.Autocomplete(input, options);
+									autocomplete.addListener('place_changed', function() {
+										var lat = autocomplete.getPlace().geometry.location.lat();
+										var lang = autocomplete.getPlace().geometry.location.lng();
+										var adr = autocomplete.getPlace().formatted_address;
+										document.getElementById('lat').value = lat;
+										document.getElementById('lng').value = lang;
+									});
+								</script>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 
-			<div class="sliderwrap">
+			<div class="sliderwrap petsale">
 				<div class="container">
-					<h2 class="text-center">Latest Pet Sale</h2>
+					<h2 class="text-center title is-2">Latest Pet Sale</h2>
 
+					<?php
+					$latest_ads = new WP_Query( array(
+						'post_type'      => 'ad',
+						'posts_per_page' => 5,
+					));
+					if ( $latest_ads->have_posts() ) :
+						?>
 					<div class="slidewrap">
 					<!-- Slider main container -->
 					<div id="petslider" class="swiper-container">
 						<!-- Additional required wrapper -->
 						<div class="swiper-wrapper">
 							<!-- Slides -->
+							<?php
+							while ( $latest_ads->have_posts() ) :
+								$latest_ads->the_post();
+								?>
 							<div class="swiper-slide">
 								<div class="item-slide">
-									<img src="<?php echo esc_url( get_theme_file_uri( '/images/cat.png' ) ); ?>" alt="">
-									<h3>Lorem Ipsum</h3>
-									<h3>£300</h3>
-									<a href="#" class="btn">Click Here</a>
+									<div class="figure-img">
+										<?php
+										$image = get_field( 'image_1' );
+										if ( $image ) :
+											?>
+										<img src="<?php echo esc_url( $image['url'] ); ?>" alt="">
+										<?php else : ?>
+										<img src="<?php echo esc_url( get_theme_file_uri( '/images/dogfood.png' ) ); ?>" alt="">
+										<?php endif; ?>
+									</div>
+									<h3 class="title is-3 mb0"><?php the_title(); ?></h3>
+									<h4 class="light"><?php echo esc_attr( get_field( 'contact_details' )['address'] ); ?></h4>
+									<h3 class="mt0">£<?php echo number_format( get_field( 'asking_price' ) ); ?>.00</h3>
+									<a href="<?php the_permalink(); ?>" class="btn">Click Here</a>
 								</div>
 							</div>
-							<div class="swiper-slide">
-								<div class="item-slide">
-									<img src="<?php echo esc_url( get_theme_file_uri( '/images/cat.png' ) ); ?>" alt="">
-									<h3>Lorem Ipsum</h3>
-									<h3>£300</h3>
-									<a href="#" class="btn">Click Here</a>
-								</div>
-							</div>
-							<div class="swiper-slide">
-								<div class="item-slide">
-									<img src="<?php echo esc_url( get_theme_file_uri( '/images/cat.png' ) ); ?>" alt="">
-									<h3>Lorem Ipsum</h3>
-									<h3>£300</h3>
-									<a href="#" class="btn">Click Here</a>
-								</div>
-							</div>
-							<div class="swiper-slide">
-								<div class="item-slide">
-									<img src="<?php echo esc_url( get_theme_file_uri( '/images/cat.png' ) ); ?>" alt="">
-									<h3>Lorem Ipsum</h3>
-									<h3>£300</h3>
-									<a href="#" class="btn">Click Here</a>
-								</div>
-							</div>
+								<?php
+							endwhile;
+							wp_reset_postdata();
+							?>
 						</div>
 						<!-- If we need pagination -->
 						<div id="petslider-pagination" class="swiper-pagination"></div>
@@ -162,8 +192,8 @@ wp_print_styles( array( 'wprig-content', 'wprig-front-page', 'wprig-slick-style'
 							clickable: true,
 						},
 						navigation: {
-							nextEl: '#petslider-prev',
-							prevEl: '#petslider-next',
+							nextEl: '#petslider-next',
+							prevEl: '#petslider-prev',
 						},
 						breakpoints: {
 							640: {
@@ -178,51 +208,49 @@ wp_print_styles( array( 'wprig-content', 'wprig-front-page', 'wprig-slick-style'
 						});
 					</script>
 					</div>
+						<?php
+					endif;
+					?>
 				</div>
 			</div>
 
 			<div class="sliderwrap mt100">
 				<div class="container">
-					<h2 class="text-center">Latest Pet Sale</h2>
+					<h2 class="text-center title is-2">Latest Products Sale</h2>
+					<?php
+					$latest_products = new WP_Query( array(
+						'post_type'      => 'product',
+						'posts_per_page' => 5,
+					));
+					if ( $latest_products->have_posts() ) :
+						?>
 
 					<div class="slidewrap">
 					<!-- Slider main container -->
 					<div id="productslider" class="swiper-container product-slider">
 						<!-- Additional required wrapper -->
 						<div class="swiper-wrapper">
+							<?php
+							while ( $latest_products->have_posts() ) :
+								$latest_products->the_post();
+								?>
 							<!-- Slides -->
 							<div class="swiper-slide">
 								<div class="item-slide">
-									<img src="<?php echo esc_url( get_theme_file_uri( '/images/dogfood.png' ) ); ?>" alt="">
-									<h3>Lorem Ipsum</h3>
-									<h3>£300</h3>
-									<a href="#" class="btn">Click Here</a>
+									<?php the_post_thumbnail( 'full' ); ?>
+									<h3 class="mb0"><?php the_title(); ?></h3>
+									<div itemprop="description" class="description">
+										<?php echo apply_filters( 'woocommerce_short_description', $latest_products->post->post_excerpt ); ?>
+									</div>
+									<?php $price = get_post_meta( get_the_ID(), '_price', true ); ?>
+									<h3 class="mt0"><?php echo wc_price( $price ); ?></h3>
+									<a href="<?php the_permalink(); ?>" class="btn">Click Here</a>
 								</div>
 							</div>
-							<div class="swiper-slide">
-								<div class="item-slide">
-									<img src="<?php echo esc_url( get_theme_file_uri( '/images/dogfood.png' ) ); ?>" alt="">
-									<h3>Lorem Ipsum</h3>
-									<h3>£300</h3>
-									<a href="#" class="btn">Click Here</a>
-								</div>
-							</div>
-							<div class="swiper-slide">
-								<div class="item-slide">
-									<img src="<?php echo esc_url( get_theme_file_uri( '/images/dogfood.png' ) ); ?>" alt="">
-									<h3>Lorem Ipsum</h3>
-									<h3>£300</h3>
-									<a href="#" class="btn">Click Here</a>
-								</div>
-							</div>
-							<div class="swiper-slide">
-								<div class="item-slide">
-									<img src="<?php echo esc_url( get_theme_file_uri( '/images/dogfood.png' ) ); ?>" alt="">
-									<h3>Lorem Ipsum</h3>
-									<h3>£300</h3>
-									<a href="#" class="btn">Click Here</a>
-								</div>
-							</div>
+								<?php
+							endwhile;
+							wp_reset_postdata();
+							?>
 						</div>
 						<!-- If we need pagination -->
 						<div id="product-pagination" class="swiper-pagination"></div>
@@ -244,8 +272,8 @@ wp_print_styles( array( 'wprig-content', 'wprig-front-page', 'wprig-slick-style'
 							clickable: true,
 						},
 						navigation: {
-							nextEl: '#product-prev',
-							prevEl: '#product-next',
+							nextEl: '#product-next',
+							prevEl: '#product-prev',
 						},
 						breakpoints: {
 							640: {
@@ -260,238 +288,132 @@ wp_print_styles( array( 'wprig-content', 'wprig-front-page', 'wprig-slick-style'
 						});
 					</script>
 					</div>
+						<?php
+					endif;
+					?>
 				</div>
 			</div>
 
 			<div class="container mt100">
 				<div class="gray-bg-link">
-					<a href="#"><img src="<?php echo esc_url( get_theme_file_uri( '/images/pethouse.png' ) ); ?>" alt=""> See all our PetDeals</a>
+					<a href="<?php bloginfo( 'url' ); ?>/shop/"><img src="<?php echo esc_url( get_theme_file_uri( '/images/pethouse.png' ) ); ?>" alt=""> See all our PetDeals</a>
 				</div>
 			</div>
 
 			<div class="welcome-section">
-				<h2 class="section-title">Welcome to Pet Deals</h2>
-				<p>Lorem ipsum dolor sit amet, quo ex deleniti prodesset, usu ea quod dicunt suavitate. Eu mea idque oporteat instructior.</p>
+				<h2 class="section-title  title is-2"><?php the_title(); ?></h2>
+				<?php the_content(); ?>
+			</div>
+
+			<?php
+			if ( have_rows( 'who_we_are' ) ) :
+				?>
+			<div class="container">
+				<div class="grid three-columns">
+				<?php
+				while ( have_rows( 'who_we_are' ) ) :
+					the_row();
+					?>
+					<div>
+						<div class="service-item">
+							<figure>
+								<img src="<?php echo esc_url( get_sub_field( 'image' )['url'] ); ?>" alt="<?php echo esc_attr( get_sub_field( 'image' )['alt'] ); ?>">
+							</figure>
+							<h3><?php the_sub_field( 'title' ); ?></h3>
+							<p><?php the_sub_field( 'content' ); ?></p>
+							<a href="<?php the_sub_field( 'link' ); ?>" class="circle-arrow"><img src="<?php echo esc_url( get_theme_file_uri( '/images/circle-arrow.png' ) ); ?>" alt=""></a>
+						</div>
+					</div>
+					<?php
+				endwhile;
+				?>
+				</div>
+			</div>
+				<?php
+			endif;
+			?>
+
+			<?php
+			if ( have_rows( 'services_we_offer' ) ) :
+				?>
+			<div class="welcome-section">
+				<h2 class="section-title  title is-2">Services we offer</h2>
 			</div>
 
 			<div class="container">
 				<div class="grid three-columns">
-					<div>
-						<div class="service-item">
-							<figure>
-								<img src="<?php echo esc_url( get_theme_file_uri( '/images/d1.png' ) ); ?>" alt="">
-							</figure>
-							<h3>Who we are</h3>
-							<p>Lorem ipsum dolor sit amet, quo ex deleniti prodesset, usu ea quod dicunt suavitate. Eu mea idque oporteat instructior.
-							<a href="#" class="circle-arrow"><img src="<?php echo esc_url( get_theme_file_uri( '/images/circle-arrow.png' ) ); ?>" alt=""></a>
-						</div>
-					</div>
-					<div>
-						<div class="service-item">
-							<figure>
-								<img src="<?php echo esc_url( get_theme_file_uri( '/images/d2.png' ) ); ?>" alt="">
-							</figure>
-							<h3>How we work</h3>
-							<p>Lorem ipsum dolor sit amet, quo ex deleniti prodesset, usu ea quod dicunt suavitate. Eu mea idque oporteat instructior.</p>
-							<a href="#" class="circle-arrow"><img src="<?php echo esc_url( get_theme_file_uri( '/images/circle-arrow.png' ) ); ?>" alt=""></a>
-						</div>
-					</div>
-					<div>
-						<div class="service-item">
-							<figure>
-								<img src="<?php echo esc_url( get_theme_file_uri( '/images/d3.png' ) ); ?>" alt="">
-							</figure>
-							<h3>Best Services</h3>
-							<p>Lorem ipsum dolor sit amet, quo ex deleniti prodesset, usu ea quod dicunt suavitate. Eu mea idque oporteat instructior.</p>
-							<a href="#" class="circle-arrow"><img src="<?php echo esc_url( get_theme_file_uri( '/images/circle-arrow.png' ) ); ?>" alt=""></a>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="welcome-section">
-				<h2 class="section-title">Services we offer</h2>
-			</div>
-
-			<div class="container">
-				<div class="grid four-columns">
+				<?php
+				while ( have_rows( 'services_we_offer' ) ) :
+					the_row();
+					?>
 					<div>
 						<div class="offer-item">
 							<figure>
-								<img src="<?php echo esc_url( get_theme_file_uri( '/images/s1.png' ) ); ?>" alt="">
+								<img src="<?php echo esc_url( get_sub_field( 'image' )['url'] ); ?>" alt="">
 							</figure>
-							<h3>Lorem Ipsum</h3>
-							<p>Lorem ipsum dolor sit amet, quo ex deleniti prodesset, usu ea quod dicunt suavitate. Eu mea idque oporteat instructior.</p>
+							<h3><?php the_sub_field( 'title' ); ?></h3>
+							<p><?php the_sub_field( 'content' ); ?></p>
 							<div class="clear"></div>
-							<a href="#">Learn More</a>
+							<a href="<?php the_sub_field( 'link' ); ?>">Learn More</a>
 						</div>
 					</div>
-					<div>
-						<div class="offer-item">
-							<figure>
-								<img src="<?php echo esc_url( get_theme_file_uri( '/images/s2.png' ) ); ?>" alt="">
-							</figure>
-							<h3>Lorem Ipsum</h3>
-							<p>Lorem ipsum dolor sit amet, quo ex deleniti prodesset, usu ea quod dicunt suavitate. Eu mea idque oporteat instructior.</p>
-							<div class="clear"></div>
-							<a href="#">Learn More</a>
-						</div>
-					</div>
-					<div>
-						<div class="offer-item">
-							<figure>
-								<img src="<?php echo esc_url( get_theme_file_uri( '/images/s3.png' ) ); ?>" alt="">
-							</figure>
-							<h3>Lorem Ipsum</h3>
-							<p>Lorem ipsum dolor sit amet, quo ex deleniti prodesset, usu ea quod dicunt suavitate. Eu mea idque oporteat instructior.</p>
-							<div class="clear"></div>
-							<div class="clear"></div>
-							<a href="#">Learn More</a>
-						</div>
-					</div>
-					<div>
-						<div class="offer-item">
-							<figure>
-								<img src="<?php echo esc_url( get_theme_file_uri( '/images/s4.png' ) ); ?>" alt="">
-							</figure>
-							<h3>Lorem Ipsum</h3>
-							<p>Lorem ipsum dolor sit amet, quo ex deleniti prodesset, usu ea quod dicunt suavitate. Eu mea idque oporteat instructior.</p>
-							<div class="clear"></div>
-							<a href="#">Learn More</a>
-						</div>
-					</div>
+					<?php
+				endwhile;
+				?>
 				</div>
 			</div>
-
-			<div class="blue-bg">
-				<div class="container">
-					<div class="testimonial-wrap">
-						<div class="testislider">
-							<div>
-								<div class="testi-item">
-									<p class="testi-content">Lorem ipsum dolor sit amet, quo ex deleniti prodesset, usu ea quod dicunt suavitate. Eu mea idque oporteat instructior.</p>
-									<img src="<?php echo esc_url( get_theme_file_uri( '/images/five-paws.png' ) ); ?>" alt="">
-									<p class="testi-name">Nick Karvournis <span>Student</span></p>
-								</div>
-							</div>
-							<div>
-								<div class="testi-item">
-									<p class="testi-content">Lorem ipsum dolor sit amet, quo ex deleniti prodesset, usu ea quod dicunt suavitate. Eu mea idque oporteat instructior.</p>
-									<img src="<?php echo esc_url( get_theme_file_uri( '/images/five-paws.png' ) ); ?>" alt="">
-									<p class="testi-name">Nick Karvournis <span>Student</span></p>
-								</div>
-							</div>
-							<div>
-								<div class="testi-item">
-									<p class="testi-content">Lorem ipsum dolor sit amet, quo ex deleniti prodesset, usu ea quod dicunt suavitate. Eu mea idque oporteat instructior.</p>
-									<img src="<?php echo esc_url( get_theme_file_uri( '/images/five-paws.png' ) ); ?>" alt="">
-									<p class="testi-name">Nick Karvournis <span>Student</span></p>
-								</div>
-							</div>
-						</div>
-						<script>
-							jQuery(document).ready(function( $ ) {
-								$('.testislider').slick({
-									dots: false
-								});
-							});
-						</script>
-					</div>
-				</div>
-			</div>
-
-			<div class="choose-us-section">
-				<div class="container">
-					<h2>WHY CHOOSE US</h2>
-					<div class="choose-items">
-						<div class="top left">
-							<div class="choose-item">
-								<div class="num">1</div>
-								<h3>Friendly<span>support</span></h3>
-								<p>Lorem ipsum dolor sit amet, quo ex deleniti prodesset, usu ea quod dicunt suavitate. Eu mea idque oporteat instructior.</p>
-							</div>
-						</div>
-						<div class="top right">
-							<div class="choose-item">
-								<div class="num">3</div>
-								<h3>Quality<span>services</span></h3>
-								<p>Lorem ipsum dolor sit amet, quo ex deleniti prodesset, usu ea quod dicunt suavitate. Eu mea idque oporteat instructior.</p>
-							</div>
-						</div>
-						<div class="center-left">
-							<p>Lorem ipsum dolor sit amet, quo ex deleniti prodesset, usu ea quod dicunt suavitate. Eu mea idque oporteat instructior.</p>
-						</div>
-						<div class="center-right">
-							<p>Lorem ipsum dolor sit amet, quo ex deleniti prodesset, usu ea quod dicunt suavitate. Eu mea idque oporteat instructior.</p>
-						</div>
-						<div class="center-dog">
-							<img src="<?php echo esc_url( get_theme_file_uri( '/images/puppy-basket.png' ) ); ?>" alt="">
-						</div>
-						<div class="bottom left">
-							<div class="choose-item">
-								<div class="num">2</div>
-								<h3>Professional<span>team</span></h3>
-							</div>
-						</div>
-						<div class="bottom right">
-							<div class="choose-item">
-								<div class="num">4</div>
-								<h3>Quality<span>services</span></h3>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="welcome-section">
-				<h2 class="section-title">Our Blogs</h2>
-			</div>
-
-			<div class="container">
-				<div class="grid three-columns bloglist">
-					<div>
-						<div class="post-card">
-							<a href="#">
-							<div class="post-date">
-								<span class="day">22</span><span class="month">Jan</span>
-							</div>
-								<img src="<?php echo esc_url( get_theme_file_uri( '/images/f1.png' ) ); ?>" alt="">
-							</a>
-							<a href="#"><h3>Lorem Ipsum</h3></a>
-							<p>Adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-							<hr>
-						</div>
-					</div>
-					<div>
-						<div class="post-card">
-							<a href="#">
-							<div class="post-date">
-								<span class="day">22</span><span class="month">Jan</span>
-							</div>
-								<img src="<?php echo esc_url( get_theme_file_uri( '/images/f1.png' ) ); ?>" alt="">
-							</a>
-							<a href="#"><h3>Lorem Ipsum</h3></a>
-							<p>Adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-							<hr>
-						</div>
-					</div>
-					<div>
-						<div class="post-card">
-							<a href="#">
-							<div class="post-date">
-								<span class="day">22</span><span class="month">Jan</span>
-							</div>
-								<img src="<?php echo esc_url( get_theme_file_uri( '/images/f1.png' ) ); ?>" alt="">
-							</a>
-							<a href="#"><h3>Lorem Ipsum</h3></a>
-							<p>Adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-							<hr>
-						</div>
-					</div>
-				</div>
-			</div>
+				<?php
+			endif;
+			?>
 
 			<?php
+			if ( have_rows( 'testimonials', 'option' ) ) :
+				?>
+				<div class="blue-bg">
+					<div class="container">
+						<div class="testimonial-wrap">
+							<!-- Slider main container -->
+							<div class="testislider swiper-container">
+								<!-- Additional required wrapper -->
+								<div class="swiper-wrapper">
+								<?php
+								while ( have_rows( 'testimonials', 'option' ) ) :
+									the_row();
+									?>
+									<!-- Slides -->
+									<div class="swiper-slide">
+										<div class="testi-item">
+											<p class="testi-content"><?php the_sub_field( 'content' ); ?></p>
+											<img src="<?php echo esc_url( get_theme_file_uri( '/images/five-paws.png' ) ); ?>" alt="">
+											<p class="testi-name"><?php the_sub_field( 'name' ); ?> <span><?php the_sub_field( 'job' ); ?></span></p>
+										</div>
+									</div>
+									<?php
+								endwhile;
+								?>
+								</div>
+							</div>
+						<!-- If we need navigation buttons -->
+						<div id="testi-prev" class="swiper-button-prev swiper-button-black"></div>
+						<div id="testi-next" class="swiper-button-next swiper-button-black"></div>
+					</div>
+					<script>
+						var testislider = new Swiper('.testislider', {
+						navigation: {
+							nextEl: '#testi-next',
+							prevEl: '#testi-prev',
+						},
+						});
+					</script>
+				</div>
+			</div>
+				<?php
+			endif;
+
+			get_template_part( 'template-parts/content', 'choose' );
+
+			get_template_part( 'template-parts/content', 'newblog' );
+
 		endwhile; // End of the loop.
 		?>
 		<?php the_posts_navigation(); ?>

@@ -24,7 +24,6 @@
 				<?php
 					wprig_posted_on();
 					wprig_posted_by();
-					wprig_comments_link();
 				?>
 			</div><!-- .entry-meta -->
 			<?php
@@ -66,6 +65,19 @@
 		wprig_post_tags();
 		wprig_edit_post_link();
 		?>
+
+		<div class="text-center">
+			<div class="social-share">
+				<?php $featured_img_url = get_the_post_thumbnail_url( get_the_ID(), 'thumbnail' ); ?>
+				<h3>SHARE: </h3>
+				<a href="https://www.facebook.com/sharer/sharer.php?u=<?php the_permalink(); ?>" target="_blank"><i class="fab fa-facebook-f"></i></a>
+				<a href="https://twitter.com/intent/tweet?url=<?php the_permalink(); ?>" target="_blank"><i class="fab fa-twitter"></i></a>
+				<a href="https://pinterest.com/pin/create/button/?url=<?php the_permalink(); ?>&media=<?php echo $featured_img_url; ?>&description=<?php the_excerpt(); ?>" target="_blank"><i class="fab fa-pinterest"></i></a>
+			</div>
+
+		</div>
+
+
 	</footer><!-- .entry-footer -->
 </article><!-- #post-<?php the_ID(); ?> -->
 
@@ -77,9 +89,4 @@ if ( is_singular() ) :
 			'next_text' => '<div class="post-navigation-sub"><span>' . esc_html__( 'Next:', 'wprig' ) . '</span></div>%title',
 		)
 	);
-
-	// If comments are open or we have at least one comment, load up the comment template.
-	if ( comments_open() || get_comments_number() ) :
-		comments_template();
-	endif;
 endif;
