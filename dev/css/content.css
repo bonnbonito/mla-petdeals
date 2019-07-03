@@ -1142,9 +1142,13 @@ img.reg-dog {
 	top: 0;
 }
 
-.pet-form.form-ad .group label.wspan span {
+.pet-form.form-ad .group label.wspan span:not(.required) {
 	font-size: 70%;
 	display: block;
+}
+
+.pet-form.form-ad .group span.required {
+	color: #ff5c5c;
 }
 
 /* active state */
@@ -1512,6 +1516,13 @@ hr.black {
 	font-size: 16px;
 }
 
+.manage-item .pet_details p.status.pending span {
+	color: orange;
+}
+
+.manage-item .pet_details p.status.publish span {
+	color: green;
+}
 
 .manage-item .pet_description {
 	margin-top: 10px;
@@ -1846,8 +1857,6 @@ hr.black {
 	width: 35px;
 	display: inline-block;
 	text-align: center;
-	margin-top: 2em;
-	margin-bottom: 2em;
 }
 
 .social-share h3 {
@@ -1861,4 +1870,15 @@ hr.black {
 
 .single-post .social-share a {
 	background: #3cc6f0;
+}
+
+.key-wrap {
+	padding-top: 2.5em;
+	padding-bottom: 2.5em;
+	background: #a7d5ea;
+	margin: 2.5em auto;
+}
+
+.key-wrap table {
+	margin: auto;
 }

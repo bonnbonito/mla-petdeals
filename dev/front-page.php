@@ -368,8 +368,12 @@ wp_print_styles( array( 'wprig-content', 'wprig-front-page', 'wprig-swiper-style
 
 			<?php
 			if ( have_rows( 'testimonials', 'option' ) ) :
+				if ( get_field( 'testimonial_image_background', 'option' ) ) :
 				?>
+				<div class="blue-bg" style="background-image: url(<?php echo get_field( 'testimonial_image_background', 'option' )['url']; ?>); background-size: cover;">
+					<?php else : ?>
 				<div class="blue-bg">
+				<?php endif; ?>
 					<div class="container">
 						<div class="testimonial-wrap">
 							<!-- Slider main container -->
@@ -394,8 +398,8 @@ wp_print_styles( array( 'wprig-content', 'wprig-front-page', 'wprig-swiper-style
 								</div>
 							</div>
 						<!-- If we need navigation buttons -->
-						<div id="testi-prev" class="swiper-button-prev swiper-button-black"></div>
-						<div id="testi-next" class="swiper-button-next swiper-button-black"></div>
+						<div id="testi-prev" class="swiper-button-prev swiper-button-white"></div>
+						<div id="testi-next" class="swiper-button-next swiper-button-white"></div>
 					</div>
 					<script>
 						var testislider = new Swiper('.testislider', {

@@ -430,6 +430,11 @@ require get_template_directory() . '/pluggable/petdeals/woocommerce.php';
 require get_template_directory() . '/pluggable/petdeals/api.php';
 
 /**
+ * Optional: Add Semantic.
+ */
+require get_template_directory() . '/pluggable/semantic/semantic.php';
+
+/**
  * Optional: ACF Google API
  */
 function my_acf_init() {
@@ -633,7 +638,9 @@ if ( function_exists( 'acf_add_options_page' ) ) {
 
 }
 
-// Disable Comments URL field.
+/**
+ * Disable Comments URL field.
+ */
 function wprig_disable_comment_url( $fields ) {
 	unset( $fields['url'] );
 	return $fields;
@@ -641,15 +648,175 @@ function wprig_disable_comment_url( $fields ) {
 
 add_filter( 'comment_form_default_fields', 'wprig_disable_comment_url' );
 
-// Get Age of Pet.
+/**
+ * Get Age of Pet.
+ */
 function get_age() {
-	$now =  date( 'j/n/Y ');
 	$petdob = get_field( 'date_of_birth' );
+	$date   = new DateTime( $petdob );
+	$now    = new DateTime();
+	return $now->diff( $date )->format( '%y years %m months' );
+}
 
-	$date_diff = abs( strtotime( $now ) - strtotime( $petdob ) );
 
-	$years  = floor( $date_diff / ( 365 * 60 * 60 * 24 ) );
-	$months = floor( ( $date_diff - $years * 365 * 60 * 60 * 24 ) / ( 30 * 60 * 60 * 24 ) );
+add_action( 'woocommerce_thankyou', 'adding_customers_details_to_thankyou', 10, 1 );
 
-	return ( ( $years > 0 ? $years . ( 1 == $years ? ' year ' : ' years ' ) : '' ) . ( $months > 0 ? $months . ( 1 == $months ? ' month' : ' months' ) : '' ) );
+/**
+ * Show Customer Details even not logged in.
+ *
+ * @param string $order_id order ID.
+ */
+function adding_customers_details_to_thankyou( $order_id ) {
+	if ( ! $order_id || is_user_logged_in() ) return;
+	$order = wc_get_order( $order_id );
+	wc_get_template( 'order/order-details-customer.php', array( 'order' => $order ) );
+}
+
+add_action( 'woocommerce_thankyou', 'adding_return_to_shop', 10, 1 );
+
+/**
+ * Show Customer Details even not logged in.
+ *
+ * @param string $order_id order ID.
+ */
+function adding_return_to_shop( $order_id ) {
+	if ( ! $order_id ) return;
+	?>
+	<a href="<?php bloginfo( 'url' ); ?>/shop/" class="btn yellow">Return to shop</a>
+	<?php
+}
+
+
+if ( ! current_user_can( 'manage_options' ) ) {
+	add_filter( 'show_admin_bar', '__return_false' );
+}
+
+
+add_action( 'wp_footer', 'mla_add_cart_quantity_plus_minus' );
+
+function mla_add_cart_quantity_plus_minus() {
+   // Only run this on the single product page
+   if ( ! is_product() ) return;
+   ?>
+      <script type="text/javascript">
+
+      jQuery(document).ready(function($){
+
+         $('form.cart, form.woocommerce-cart-form').on( 'click', 'button.plus, button.minus', function() {
+
+            // Get current quantity values
+            var qty = $( this ).closest( 'form.cart' ).find( '.qty' );
+            var val   = parseFloat(qty.val());
+            var max = parseFloat(qty.attr( 'max' ));
+            var min = parseFloat(qty.attr( 'min' ));
+            var step = parseFloat(qty.attr( 'step' ));
+
+            // Change the value if plus or minus
+            if ( $( this ).is( '.plus' ) ) {
+               if ( max && ( max <= val ) ) {
+                  qty.val( max );
+               } else {
+                  qty.val( val + step );
+               }
+            } else {
+               if ( min && ( min >= val ) ) {
+                  qty.val( min );
+               } else if ( val > 1 ) {
+                  qty.val( val - step );
+               }
+            }
+
+         });
+
+      });
+
+      </script>
+   <?php
+}
+
+add_action( 'wp_footer', 'mla_add_cart_quantity_plus_minus2' );
+
+function mla_add_cart_quantity_plus_minus2() {
+   // Only run this on the single product page
+   if ( ! is_cart() ) return;
+   ?>
+      <script type="text/javascript">
+
+      jQuery(document).ready(function($){
+
+         $('.quantity-wrap').on( 'click', 'button.plus, button.minus', function() {
+			 $( 'button[name="update_cart"]' ).removeProp( 'disabled');
+            // Get current quantity values
+            var qty = $( this ).closest( '.quantity' ).find( '.qty' );
+            var val   = parseFloat(qty.val());
+            var max = parseFloat(qty.attr( 'max' ));
+            var min = parseFloat(qty.attr( 'min' ));
+            var step = parseFloat(qty.attr( 'step' ));
+
+            // Change the value if plus or minus
+            if ( $( this ).is( '.plus' ) ) {
+               if ( max && ( max <= val ) ) {
+                  qty.val( max );
+               } else {
+                  qty.val( val + step );
+               }
+            } else {
+               if ( min && ( min >= val ) ) {
+                  qty.val( min );
+               } else if ( val > 1 ) {
+                  qty.val( val - step );
+               }
+            }
+
+         });
+
+      });
+
+      </script>
+   <?php
+}
+
+/**
+ * Email when ad is online
+ *
+ * @param string $post_id Post ID.
+ */
+function ad_published_send_email( $post_id ) {
+
+	if ( is_admin() ) {
+		return;
+	}
+
+	if ( 'ad' != get_post_type( $post_id ) ) {
+		return;
+	}
+
+	$post   = get_post( $post_id );
+	$author = get_userdata( $post->post_author );
+
+	$message = '
+	  Hi ' . $author->display_name . ',
+	  Your listing, ' . $post->post_title . ' has just been approved at ' . get_permalink( $post_id ) . ' . Well done!
+	';
+
+	wp_mail( $author->user_email, 'Your ad listing is online', $message );
+}
+
+add_action( 'pending_to_publish', 'ad_published_send_email' );
+
+
+add_filter( 'manage_users_columns', 'petdeals_add_user_activated_column' );
+
+function petdeals_add_user_activated_column( $columns ) {
+	$columns['activated'] = 'Activated';
+	return $columns;
+}
+
+add_action( 'manage_users_custom_column',  'petdeals_show_user_activated_column_content', 10, 3 );
+
+function petdeals_show_user_activated_column_content( $value, $column_name, $user_id ) {
+	$activated = get_user_meta( $user_id, 'account_activated', true );
+	if ( 'activated' == $column_name )
+		return ( 0 == $activated ? 'No' : 'Yes' );
+	return $value;
 }

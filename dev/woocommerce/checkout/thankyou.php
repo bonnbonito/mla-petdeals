@@ -114,6 +114,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			</ul>
 
+			<a href="<?php bloginfo( 'url' ); ?>/shop/" class="button">Return to shop</a>
+
 		<?php endif; ?>
 
 		<?php do_action( 'woocommerce_thankyou_' . $order->get_payment_method(), $order->get_id() ); ?>

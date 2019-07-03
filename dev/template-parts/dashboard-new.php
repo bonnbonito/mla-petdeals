@@ -47,7 +47,7 @@ if ( petdeals_can_post_ad() ) :
 		<input type="text" id="datepicker" required>
 		<span class="highlight"></span>
 		<span class="bar"></span>
-		<label class="wspan">DATE OF BIRTH OF PET <span>(All puppies and kittens cannot be sold if they are aged less than 8 weeks.)</span></label>
+		<label class="wspan">DATE OF BIRTH OF PET<span class="required">*</span><span>(All puppies and kittens cannot be sold if they are aged less than 8 weeks.)</span></label>
 	</div>
 	<input type="hidden" name="pet_dob" id="pet_dob">
 	<div class="group price-group">
@@ -55,9 +55,9 @@ if ( petdeals_can_post_ad() ) :
 		<input type="number" id="price" name="price" required>
 		<span class="highlight"></span>
 		<span class="bar"></span>
-		<label>ASKING PRICE</span></label>
+		<label>ASKING PRICE<span class="required">*</span></label>
 	</div>
-	<textarea id="description" cols="30" rows="10" name="description" placeholder="DESCRIPTION"></textarea>
+	<textarea id="description" cols="30" rows="10" name="description" placeholder="DESCRIPTION" required></textarea>
 	<div class="ads-images">
 	<p>Add Images:</p>
 	<div class="ads-images-wrap">
@@ -100,13 +100,13 @@ if ( petdeals_can_post_ad() ) :
 			<input type="text" id="seller_name" name="seller_name" required>
 			<span class="highlight"></span>
 			<span class="bar"></span>
-			<label>NAME</label>
+			<label>NAME<span class="required">*</span></label>
 		</div>
 		<div class="group">
 			<input type="text" id="seller_tel" name="seller_tel" required>
 			<span class="highlight"></span>
 			<span class="bar"></span>
-			<label>TELEPHONE</label>
+			<label>TELEPHONE<span class="required">*</span></label>
 		</div>
 	</div>
 	<div class="col">
@@ -114,13 +114,13 @@ if ( petdeals_can_post_ad() ) :
 			<input type="email" id="seller_email" name="seller_email" required>
 			<span class="highlight"></span>
 			<span class="bar"></span>
-			<label>EMAIL</label>
+			<label>EMAIL<span class="required">*</span></label>
 		</div>
 		<div class="group">
 			<input type="text" placeholder="" required name="address" id="autocomplete">
 			<span class="highlight"></span>
 			<span class="bar"></span>
-			<label>POSTCODE</label>
+			<label>POSTCODE<span class="required">*</span></label>
 		</div>
 	</div>
 	</div>

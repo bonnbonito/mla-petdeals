@@ -272,9 +272,39 @@
 
 .description-section .advert-facts {
 	padding: 0;
-	margin: 0;
-	list-style: none;
 	margin-bottom: 2em;
+	border-collapse: collapse;
+  	width: 100%;
+	max-width: 500px;
+	margin: auto;
+	border: 0;
+	box-shadow: 0px 0px 10px 1px rgba( 50, 122,129, .5 );
+}
+
+.advert-facts tr {
+	background: #fff;
+	color: #096d99;
+}
+
+.advert-facts tr:nth-child( odd ) {
+	background: #c5d7e3;
+}
+
+.description-section .advert-facts td {
+	padding: .75em 1em;
+}
+
+.description-section .advert-facts td a {
+	color: #0073aa;
+	font-size: 80%;
+}
+
+.description-section .advert-facts thead tr {
+	background: #096d99;
+}
+
+.description-section .advert-facts thead h3 {
+	margin: 0;
 }
 
 .no-heart .heart {
@@ -478,7 +508,6 @@
 }
 
 .woocommerce-cart .woocommerce .quantity .qty {
-	width: 5em;
 	outline: 0;
 }
 

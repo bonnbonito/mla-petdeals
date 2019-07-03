@@ -10,6 +10,12 @@ jQuery( document ).ready( function( $ ) {
 
 		if ( petType ) {
 
+			if ( 'cats' == petType ) {
+				$( 'label[for="kc_registered"]' ).html( 'REGISTERED?' );
+			} else {
+				$( 'label[for="kc_registered"]' ).html( 'KC REGISTERED? <span style="color: red;">(Only valid for dogs)</span>' );
+			}
+
 			$( '#pet_breed' ).html( '<option value="">Getting breeds...</option' );
 
 			$.post( generate.ajax_url, form ).always( function( response ) {

@@ -196,7 +196,7 @@ jQuery( document ).ready( function( $ ) {
 
 			} else {
 				$.post( petDeals.ajax_url, form ).always( function( response ) {
-					console.log( response.status );
+					console.log( response );
 					switch ( response.status ) {
 						case 3:
 						$( '#register-status' ).html(
@@ -369,17 +369,17 @@ jQuery( document ).ready( function( $ ) {
 		return strength;
 	}
 
-	$( '#pet-form' ).on( 'keyup', '#pet-form-password, #pet-form-repassword',
-        function( event ) {
-            checkPasswordStrength(
-                $( '#pet-form-password' ), // First password field
-                $( '#pet-form-repassword' ), // Second password field
-                $( '#password-strength' ), // Strength meter
-                $( '#pet-form-submit' ), // Submit button
-                []        // Blacklisted words
-            );
-        }
-	);
+	// $( '#pet-form' ).on( 'keyup', '#pet-form-password, #pet-form-repassword',
+    //     function( event ) {
+    //         checkPasswordStrength(
+    //             $( '#pet-form-password' ), // First password field
+    //             $( '#pet-form-repassword' ), // Second password field
+    //             $( '#password-strength' ), // Strength meter
+    //             $( '#pet-form-submit' ), // Submit button
+    //             []        // Blacklisted words
+    //         );
+    //     }
+	// );
 
 	$( '.show-dashboard button' ).on( 'click', function( e ) {
 		e.preventDefault();

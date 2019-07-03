@@ -77,7 +77,7 @@ if ( $id ) :
 							<?php the_field( 'description' ); ?>
 						</div>
 
-						<p class="status">STATUS: <?php echo esc_html( get_post_status( $post->ID ) === 'publish' ? 'APPROVED' : 'PENDING' ); ?></p>
+						<p class="status <?php echo get_post_status( $post->ID ); ?>">STATUS: <span><?php echo esc_html( get_post_status( $post->ID ) === 'publish' ? 'APPROVED' : 'PENDING' ); ?></span></p>
 
 						<div class="manage-footer">
 						<p class="location">LOCATION: <?php echo esc_html( get_field( 'contact_details' )['address'] ); ?></p>

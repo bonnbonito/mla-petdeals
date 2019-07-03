@@ -30,10 +30,20 @@
 				<hr class="black">
 				<h2 class="ad-price">£<?php the_field( 'asking_price' ); ?></h2>
 				<div class="seller-wrap">
-
 					<div class="seller-img">
+					<?php
+					$user_id = get_the_author_meta( 'ID' );
+					$avatar = get_user_meta( $user_id, 'avatar', true );
+					if ( $avatar ) :
+						?>
+						<img src="<?php echo esc_url( wp_get_attachment_image_src( $avatar )[0] ); ?>" alt="<?php echo esc_attr( get_the_author_meta( 'display_name' ) ); ?>">
+						<?php
+					else :
+						?>
 						<img src="<?php echo esc_url( get_theme_file_uri( '/images/user.png' ) ); ?>" alt="">
+					<?php endif; ?>
 					</div>
+
 					<div class="seller-name">
 						<h3><?php the_field( 'seller_name' ); ?></h3>
 						<p>Private Seller</p>
@@ -78,65 +88,184 @@
 	</div>
 
 	<div class="description-section">
-		<div class="container">
 
-			<div class="reportform-on" id="report" style="display: none;">
-
+		<div class="reportform-on" id="report" style="display: none;">
+			<div class="container">
 				<p style="text-align: right;"><a href="" id="closereport" title="Close Form" ><i class="far fa-times-circle"></i></a></p>
 
 				<?php echo do_shortcode( '[contact-form-7 id="193" title="Report Form"]' ); ?>
 
 			</div>
+		</div>
 
-			<div class="reportform-off">
+		<div class="reportform-off">
 
-				<h2>Description</h2>
+			<div class="container">
+
+			<h2>Description</h2>
 
 
-				<?php the_field( 'description' ); ?>
+			<?php the_field( 'description' ); ?>
 
-				&nbsp;
+			&nbsp;
 
-				<h3 style="color: #3dc6f0;">KEY ADVERT FACTS</h3>
+			</div>
 
-				<ul class="advert-facts">
-					<li>Ad reference : <?php echo esc_html( get_the_ID() ); ?></li>
-					<li>Advert Type: <?php echo esc_html( get_field( 'advert_type' ) ? get_field( 'advert_type' ) : '' ); ?> </li>
-					<li>Pet Type: <span style="text-transform: capitalize;"><?php echo esc_html( get_field( 'pet_type' ) ? get_field( 'pet_type' ) : '' ); ?></span></li>
-					<li>Pet Breed: <?php echo ( get_field( 'pet_breed' ) ? esc_html( get_field( 'pet_breed' ) ) : '' ); ?></li>
+
+			<div class="key-wrap">
+
+				<div class="container">
+
+				<table class="advert-facts">
+					<thead>
+						<tr>
+							<td colspan="2"><h3 style="color: #fff; text-align: center;">KEY ADVERT FACTS</h3></td>
+						</tr>
+					</thead>
+					<tr>
+						<td><strong>Ad reference :</strong></td>
+						<td><?php echo esc_html( get_the_ID() ); ?></td>
+					</tr>
+					<tr>
+						<td><strong>Advert Type:</strong></td>
+						<td> <?php echo esc_html( get_field( 'advert_type' ) ? get_field( 'advert_type' ) : '' ); ?></td>
+					</tr>
+					<tr>
+						<td><strong>Pet Type:</strong></td>
+						<td><span style="text-transform: capitalize;"><?php echo esc_html( get_field( 'pet_type' ) ? get_field( 'pet_type' ) : '' ); ?></span></td>
+					</tr>
+					<tr>
+						<td><strong>Pet Breed:</strong></td>
+						<td><?php echo ( get_field( 'pet_breed' ) ? esc_html( get_field( 'pet_breed' ) ) : '' ); ?></td>
+					</tr>
 					<?php if ( get_field( 'date_of_birth' ) ) : ?>
-					<li>Age: <?php echo esc_html( get_age() ); ?> old</li>
+					<tr>
+						<td><strong>Age:</strong></td>
+						<td><?php echo esc_html( get_age()); ?> old</td>
+					</tr>
 					<?php endif; ?>
-					<li>Council Licenced: <?php echo esc_html( get_field( 'advert_type' ) ? 'Yes' : 'No' ); ?></li>
-					<li>Microchipped: <?php echo esc_html( get_field( 'microchipped' ) ? 'Yes' : 'No' ); ?></li>
-					<li>Neutered: <?php echo esc_html( get_field( 'neutered' ) ? 'Yes' : 'No' ); ?></li>
-					<li>Vaccinations Up-to-date: <?php echo esc_html( get_field( 'vaccinations_up_to_date' ) ? 'Yes' : 'No' ); ?></li>
-					<li>KC registered: <?php echo esc_html( get_field( 'kc_registered' ) ? 'Yes' : 'No' ); ?></li>
-				</ul>
+					<tr>
+						<td><strong>Microchipped:</strong></td>
+						<td><?php echo esc_html( get_field( 'microchipped' ) ? 'Yes' : 'No' ); ?> <a href="#" id="microshipped-modal">(More Info)</a></td>
+					</tr>
+					<tr>
+						<td><strong>Neutered:</td>
+						<td><?php echo esc_html( get_field( 'neutered' ) ? 'Yes' : 'No' ); ?> <a href="#" id="neutered-modal">(More Info)</a></td>
+					</tr>
+					<tr>
+						<td><strong>Vaccinations Up-to-date:</strong></td>
+						<td><?php echo esc_html( get_field( 'vaccinations_up_to_date' ) ? 'Yes' : 'No' ); ?> <a href="#" id="vaccinations-modal">(More Info)</a></td>
+					</tr>
+					<tr>
+						<td><strong><?php echo esc_html( 'dogs' == get_field( 'pet_type' ) ? 'KC registered' : 'Registered' ); ?>:</strong></td>
+						<td><?php echo esc_html( get_field( 'kc_registered' ) ? 'Yes' : 'No' ); ?> <a href="#" id="registered-modal">(More Info)</a></td>
+					</tr>
+				</table>
 
-				<hr>
+				</div>
 
-				<?php
+			</div>
+
+			<div class="container">
+			<?php
 
 				$pet_type =  get_field( 'pet_type' );
 
 				$pet = get_page_by_path( $pet_type, OBJECT, 'pet' );
-
-				?>
-
-
+				if ( $pet ) :
+					?>
 				<h2><?php echo get_the_title( $pet->ID ); ?> Buying Checklist</h2>
 
-				<?php the_field( 'buying_checklist', $pet->ID ); ?>
+					<?php
+					the_field( 'buying_checklist', $pet->ID );
+				endif;
+				?>
 
 			</div>
-
 		</div>
 	</div>
 
 </article><!-- #post-<?php the_ID(); ?> -->
+<div class="ui modal" id="microchipped-wrap">
+	<i class="close icon"></i>
+	<div class="header">
+	Microchipped
+	</div>
+	<div class="content">
+	<div class="description">
+		<?php the_field( 'microchipped_content', 'option' ) ?>
+	</div>
+	</div>
+	<div class="actions">
+	<button class="yellow btn closemodal" style="margin-bottom: 0;">OK</button>
+	</div>
+</div>
+<div class="ui modal" id="neutered-wrap">
+	<i class="close icon"></i>
+	<div class="header">
+	Neutered
+	</div>
+	<div class="content">
+	<div class="description">
+		<?php the_field( 'neutered_content', 'option' ) ?>
+	</div>
+	</div>
+	<div class="actions">
+	<button class="yellow btn closemodal" style="margin-bottom: 0;">OK</button>
+	</div>
+</div>
+<div class="ui modal" id="vaccinations-wrap">
+	<i class="close icon"></i>
+	<div class="header">
+	Vaccinations
+	</div>
+	<div class="content">
+	<div class="description">
+		<?php the_field( 'vaccinations_content', 'option' ) ?>
+	</div>
+	</div>
+	<div class="actions">
+	<button class="yellow btn closemodal" style="margin-bottom: 0;">OK</button>
+	</div>
+</div>
+<div class="ui modal" id="registered-wrap">
+	<i class="close icon"></i>
+	<div class="header">
+	Registered
+	</div>
+	<div class="content">
+	<div class="description">
+		<?php the_field( 'registered_content', 'option' ) ?>
+	</div>
+	</div>
+	<div class="actions">
+	<button class="yellow btn closemodal" style="margin-bottom: 0;">OK</button>
+	</div>
+</div>
 <script>
 	jQuery( document ).ready( function( $ ) {
+		$( '#microshipped-modal' ).on( 'click', function( e ) {
+			e.preventDefault();
+			$( '#microchipped-wrap' ).modal( 'show' );
+		});
+		$( '#registered-modal' ).on( 'click', function( e ) {
+			e.preventDefault();
+			$( '#registered-wrap' ).modal( 'show' );
+		});
+		$( '#vaccinations-modal' ).on( 'click', function( e ) {
+			e.preventDefault();
+			$( '#vaccinations-wrap' ).modal( 'show' );
+		});
+		$( '#neutered-modal' ).on( 'click', function( e ) {
+			e.preventDefault();
+			$( '#neutered-wrap' ).modal( 'show' );
+		});
+		$( '.modal' ).modal({
+			closable: true
+		});
+		$( '.closemodal' ).on( 'click', function(){
+			$( this ).closest( '.ui.modal' ).modal( 'hide' );
+		} );
 		var report = 0;
 		$( '#showreport' ).on( 'click', function(){
 			if ( report == 0) {

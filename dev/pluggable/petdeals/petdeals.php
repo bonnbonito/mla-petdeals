@@ -112,9 +112,9 @@ class BJE_PeatDeals {
 				'root_url' => get_site_url(),
 			));
 		}
-		if ( is_page( 'register' ) ) {
-			wp_enqueue_script( 'password-strength-meter' );
-		}
+		// if ( is_page( 'register' ) ) {
+		// 	wp_enqueue_script( 'password-strength-meter' );
+		// }
 		if ( is_woocommerce() || is_singular( 'ad' ) || is_checkout() || is_cart() || is_page( 'checkout' ) ) {
 			wp_enqueue_style( 'wprig-woo', get_theme_file_uri( '/pluggable/petdeals/woocommerce.css' ), array(), '20180514' );
 		}
@@ -140,9 +140,7 @@ class BJE_PeatDeals {
 			));
 		}
 		if ( is_woocommerce() || is_cart() ) {
-			wp_enqueue_style( 'jquery-ui', '//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css', array(), '1.12.1' );
-			wp_enqueue_script( 'jquery-ui-spinner' );
-			wp_enqueue_script( 'wprig-spinner-js', get_theme_file_uri( '/pluggable/petdeals/woo.js' ), array( 'jquery-ui-spinner' ), '1.0.0', true );
+			wp_enqueue_script( 'wprig-spinner-js', get_theme_file_uri( '/pluggable/petdeals/woo.js' ), array( 'jquery' ), '1.0.0', true );
 		}
 
 		wp_enqueue_script( 'wprig-mailchimp-js', get_theme_file_uri( '/pluggable/petdeals/mailchimp.js' ), array( 'jquery' ), '1.0.0', false );
@@ -239,11 +237,11 @@ class BJE_PeatDeals {
 		$address       = isset( $_POST['address'] ) ? sanitize_text_field( wp_unslash( $_POST['address'] ) ) : '';
 		$lat           = isset( $_POST['lat'] ) ? sanitize_text_field( wp_unslash( $_POST['lat'] ) ) : '';
 		$lng           = isset( $_POST['lng'] ) ? sanitize_text_field( wp_unslash( $_POST['lng'] ) ) : '';
-		$microchipped  = isset( $_POST['microchipped'] ) ? sanitize_text_field( wp_unslash( $_POST['microchipped'] ) ) : '';
-		$agree         = isset( $_POST['agree'] ) ? sanitize_text_field( wp_unslash( $_POST['agree'] ) ) : '';
-		$neutered      = isset( $_POST['neutered'] ) ? sanitize_text_field( wp_unslash( $_POST['neutered'] ) ) : '';
-		$vacc          = isset( $_POST['vacc-up-to-date'] ) ? sanitize_text_field( wp_unslash( $_POST['vacc-up-to-date'] ) ) : '';
-		$kc_registered = isset( $_POST['kc_registered'] ) ? sanitize_text_field( wp_unslash( $_POST['kc_registered'] ) ) : '';
+		$microchipped  = isset( $_POST['microchipped'] ) ? sanitize_text_field( wp_unslash( $_POST['microchipped'] ) ) : '0';
+		$agree         = isset( $_POST['agree'] ) ? sanitize_text_field( wp_unslash( $_POST['agree'] ) ) : '0';
+		$neutered      = isset( $_POST['neutered'] ) ? sanitize_text_field( wp_unslash( $_POST['neutered'] ) ) : '0';
+		$vacc          = isset( $_POST['vacc-up-to-date'] ) ? sanitize_text_field( wp_unslash( $_POST['vacc-up-to-date'] ) ) : '0';
+		$kc_registered = isset( $_POST['kc_registered'] ) ? sanitize_text_field( wp_unslash( $_POST['kc_registered'] ) ) : '0';
 		$image1        = isset( $_POST['ad_image_1'] ) ? sanitize_text_field( wp_unslash( $_POST['ad_image_1'] ) ) : '';
 		$image2        = isset( $_POST['ad_image_2'] ) ? sanitize_text_field( wp_unslash( $_POST['ad_image_2'] ) ) : '';
 		$image3        = isset( $_POST['ad_image_3'] ) ? sanitize_text_field( wp_unslash( $_POST['ad_image_3'] ) ) : '';
@@ -314,30 +312,15 @@ class BJE_PeatDeals {
 		}
 
 		// Microshipped.
-		if ( $microchipped ) {
-			update_field( 'field_5ca2fadf2a026', $microchipped, $post_id );
-		}
+		update_field( 'field_5ca2fadf2a026', $microchipped, $post_id );
 		// Neutered.
-		if ( $microchipped ) {
-			update_field( 'field_5ca2faf92a027', $microchipped, $post_id );
-		}
+		update_field( 'field_5ca2faf92a027', $microchipped, $post_id );
 		// Vacc up to date.
-		if ( $vacc ) {
-			update_field( 'field_5ca2fb092a028', $vacc, $post_id );
-		}
-		// Microshipped.
-		if ( $neutered ) {
-			update_field( 'field_5ca2fadf2a026', $neutered, $post_id );
-		}
+		update_field( 'field_5ca2fb092a028', $vacc, $post_id );
 		// KC Registered.
-		if ( $kc_registered ) {
-			update_field( 'field_5ca2fb252a029', $kc_registered, $post_id );
-		}
-
+		update_field( 'field_5ca2fb252a029', $kc_registered, $post_id );
 		// Privacy Agree.
-		if ( $agree ) {
-			update_field( 'field_5ca2fb442a02a', $agree, $post_id );
-		}
+		update_field( 'field_5ca2fb442a02a', $agree, $post_id );
 		// Image 1.
 		if ( $image1 ) {
 			update_field( 'field_5ca3646d36ad9', $image1, $post_id );
@@ -383,11 +366,11 @@ class BJE_PeatDeals {
 		$address       = isset( $_POST['address'] ) ? sanitize_text_field( wp_unslash( $_POST['address'] ) ) : '';
 		$lat           = isset( $_POST['lat'] ) ? sanitize_text_field( wp_unslash( $_POST['lat'] ) ) : '';
 		$lng           = isset( $_POST['lng'] ) ? sanitize_text_field( wp_unslash( $_POST['lng'] ) ) : '';
-		$microchipped  = isset( $_POST['microchipped'] ) ? sanitize_text_field( wp_unslash( $_POST['microchipped'] ) ) : '';
-		$agree         = isset( $_POST['agree'] ) ? sanitize_text_field( wp_unslash( $_POST['agree'] ) ) : '';
-		$neutered      = isset( $_POST['neutered'] ) ? sanitize_text_field( wp_unslash( $_POST['neutered'] ) ) : '';
-		$vacc          = isset( $_POST['vacc-up-to-date'] ) ? sanitize_text_field( wp_unslash( $_POST['vacc-up-to-date'] ) ) : '';
-		$kc_registered = isset( $_POST['kc_registered'] ) ? sanitize_text_field( wp_unslash( $_POST['kc_registered'] ) ) : '';
+		$microchipped  = isset( $_POST['microchipped'] ) ? sanitize_text_field( wp_unslash( $_POST['microchipped'] ) ) : '0';
+		$agree         = isset( $_POST['agree'] ) ? sanitize_text_field( wp_unslash( $_POST['agree'] ) ) : '0';
+		$neutered      = isset( $_POST['neutered'] ) ? sanitize_text_field( wp_unslash( $_POST['neutered'] ) ) : '0';
+		$vacc          = isset( $_POST['vacc-up-to-date'] ) ? sanitize_text_field( wp_unslash( $_POST['vacc-up-to-date'] ) ) : '0';
+		$kc_registered = isset( $_POST['kc_registered'] ) ? sanitize_text_field( wp_unslash( $_POST['kc_registered'] ) ) : '0';
 		$image1        = isset( $_POST['ad_image_1'] ) ? sanitize_text_field( wp_unslash( $_POST['ad_image_1'] ) ) : '';
 		$image2        = isset( $_POST['ad_image_2'] ) ? sanitize_text_field( wp_unslash( $_POST['ad_image_2'] ) ) : '';
 		$image3        = isset( $_POST['ad_image_3'] ) ? sanitize_text_field( wp_unslash( $_POST['ad_image_3'] ) ) : '';
@@ -428,25 +411,13 @@ class BJE_PeatDeals {
 		// Seller Email.
 		update_field( 'field_5cc85b42d12d5', $seller_email, $ad_id );
 		// Microshipped.
-		if ( $microchipped ) {
-			update_field( 'field_5ca2fadf2a026', $microchipped, $ad_id );
-		}
+		update_field( 'field_5ca2fadf2a026', $microchipped, $ad_id );
 		// Neutered.
-		if ( $microchipped ) {
-			update_field( 'field_5ca2faf92a027', $microchipped, $ad_id );
-		}
+		update_field( 'field_5ca2faf92a027', $microchipped, $ad_id );
 		// Vacc up to date.
-		if ( $vacc ) {
-			update_field( 'field_5ca2fb092a028', $vacc, $ad_id );
-		}
-		// Microshipped.
-		if ( $neutered ) {
-			update_field( 'field_5ca2fadf2a026', $neutered, $ad_id );
-		}
+		update_field( 'field_5ca2fb092a028', $vacc, $ad_id );
 		// KC Registered.
-		if ( $kc_registered ) {
-			update_field( 'field_5ca2fb252a029', $kc_registered, $ad_id );
-		}
+		update_field( 'field_5ca2fb252a029', $kc_registered, $ad_id );
 
 		// Privacy Agree.
 		if ( $agree ) {
@@ -552,8 +523,8 @@ class BJE_PeatDeals {
 
 		$html = 'Please click the following link <br/><br/> <a href="' . $url . '">' . $url . '</a>';
 		$headers = array( 'Content-Type: text/html; charset=UTF-8' );
-		// send an email out to user
-		wp_mail( $email, __( 'Validate your account.', 'wprig' ), $html, $headers );
+		// send an email out to user.
+		wp_mail( $email, 'Validate your Petdeals Account', $html, $headers );
 		$output['status'] = 2;
 		wp_send_json( $output );
 	}

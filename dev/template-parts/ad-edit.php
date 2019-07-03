@@ -65,7 +65,7 @@ $ad_author_id = get_post_field( 'post_author', $ad_id );
 		<span class="bar"></span>
 		<label class="wspan">DATE OF BIRTH OF PET <span>(All puppies and kittens cannot be sold if they are aged less than 8 weeks.)</span></label>
 	</div>
-	<input type="hidden" name="pet_dob" id="pet_dob" <?php echo esc_attr( get_field( 'date_of_birth', $ad_id ) ); ?>>
+	<input type="hidden" name="pet_dob" id="pet_dob" value="<?php echo esc_attr( get_field( 'date_of_birth', $ad_id ) ); ?>">
 	<div class="group price-group">
 		<span class="currency">£</span>
 		<input type="number" id="price" name="price" required value="<?php echo esc_attr( get_field( 'asking_price', $ad_id ) ); ?>">
@@ -180,7 +180,7 @@ $ad_author_id = get_post_field( 'post_author', $ad_id );
 			</div>
 			<div>
 				<div class="check-container">
-					<input type="checkbox" name="neutered" id="neutered" value="1" <?php echo esc_attr( get_field( 'neutered', $ad_id ) ? 'checked' : '' ); ?>>
+					<input type="checkbox" name="neutered" id="neutered" value="1" <?php echo esc_attr( '1' == get_field( 'neutered', $ad_id ) ? 'checked' : '' ); ?>>
 					<span class="checkmark"></span>
 				</div>
 			</div>
@@ -191,25 +191,29 @@ $ad_author_id = get_post_field( 'post_author', $ad_id );
 			</div>
 			<div>
 				<div class="check-container">
-					<input type="checkbox" name="vacc-up-to-date" id="vacc-up-to-date" value="1" <?php echo esc_attr( get_field( 'vaccinations_up_to_date', $ad_id ) ? 'checked' : '' ); ?>>
+					<input type="checkbox" name="vacc-up-to-date" id="vacc-up-to-date" value="1" <?php echo esc_attr( '1' == get_field( 'vaccinations_up_to_date', $ad_id ) ? 'checked' : '' ); ?>>
 					<span class="checkmark"></span>
 				</div>
 			</div>
 		</div>
 		<div class="check-item">
 			<div>
+			    <?php if ( 'cats' != get_field( 'pet_type', $ad_id ) ) : ?>
 				<label for="kc_registered">KC REGISTERED? <span style="color: red;">(Only valid for dogs)</span></label>
+				<?php else : ?>
+				<label for="kc_registered">REGISTERED?</label>
+				<?php endif; ?>
 			</div>
 			<div>
 				<div class="check-container">
-					<input type="checkbox" name="kc_registered" id="kc_registered" value="1" <?php echo esc_attr( get_field( 'kc_registered', $ad_id ) ? 'checked' : '' ); ?>>
+					<input type="checkbox" name="kc_registered" id="kc_registered" value="1" <?php echo esc_attr( '1' == get_field( 'kc_registered', $ad_id ) ? 'checked' : '' ); ?>>
 					<span class="checkmark"></span>
 				</div>
 			</div>
 		</div>
 		<div class="check-privacy">
 			<div class="check-container">
-				<input type="checkbox" name="agree" required id="agree-privacy" value="1" <?php echo esc_attr( get_field( 'i_agree_to_the_terms_&_condition_and_privacy_policy', $ad_id ) ? 'checked' : '' ); ?>>
+				<input type="checkbox" name="agree" required id="agree-privacy" value="1" <?php echo esc_attr( '1' == get_field( 'i_agree_to_the_terms_&_condition_and_privacy_policy', $ad_id ) ? 'checked' : '' ); ?>>
 				<span class="checkmark"></span>
 			</div>
 			<label for="agree-privacy">I agree to the <a href="" target="_blank">Terms & Condition</a> and <a href="#" target="_blank">Privacy Policy</a></label>

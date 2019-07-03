@@ -16,7 +16,10 @@
  */
 
 defined( 'ABSPATH' ) || exit;
-
+?>
+<div class="quantity-wrap">
+<label for="<?php echo esc_attr( $input_id ); ?>">Quantity</label>
+<?php
 if ( $max_value && $min_value === $max_value ) {
 	?>
 	<div class="quantity hidden">
@@ -28,7 +31,7 @@ if ( $max_value && $min_value === $max_value ) {
 	$label = ! empty( $args['product_name'] ) ? sprintf( __( '%s quantity', 'woocommerce' ), wp_strip_all_tags( $args['product_name'] ) ) : __( 'Quantity', 'woocommerce' );
 	?>
 	<div class="quantity">
-		<label for="<?php echo esc_attr( $input_id ); ?>">Quantity</label>
+		<button type="button" class="plus" >+</button>
 		<input
 			type="number"
 			id="<?php echo esc_attr( $input_id ); ?>"
@@ -41,6 +44,9 @@ if ( $max_value && $min_value === $max_value ) {
 			title="<?php echo esc_attr_x( 'Qty', 'Product quantity input tooltip', 'woocommerce' ); ?>"
 			size="4"
 			inputmode="<?php echo esc_attr( $inputmode ); ?>" />
+		<button type="button" class="minus" >-</button>
 	</div>
 	<?php
 }
+?>
+</div>
